@@ -1,17 +1,31 @@
-# Simple Go Server
+# Simple Go Messenger
 
-A well-structured HTTP server built with Go's standard library, following Go project layout best practices.
+A modern full-stack messaging application built with **Go** backend and **React** frontend.
 
 ## Features
 
-- Clean, modular Go project structure
-- Simple HTTP server with multiple endpoints
-- User registration with secure password hashing
-- SQLite database for user storage
-- Health check endpoint
-- Query parameter support
-- Proper error handling and validation
-- Reusable response utilities
+- 🔐 **Secure Authentication**: User registration with bcrypt password hashing
+- 💬 **Real-time Messaging**: (Coming soon)
+- 🎨 **Modern UI**: React with TypeScript and Styled Components
+- ⚡ **Fast Backend**: Go with SQLite database
+- 🔒 **Security**: CORS protection and input validation
+- 📱 **Responsive Design**: Works on desktop and mobile
+
+## Tech Stack
+
+### Backend
+- **Go 1.24+** - Server language
+- **SQLite** - Database
+- **bcrypt** - Password hashing
+- **Standard library** - HTTP handling
+ 
+### Frontend
+- **React 19** - UI framework
+- **TypeScript** - Type safety
+- **Vite** - Build tool and dev server
+- **Styled Components** - CSS-in-JS styling
+- **React Router** - Navigation
+- **Axios** - HTTP client
 
 ## Endpoints
 
@@ -24,30 +38,43 @@ A well-structured HTTP server built with Go's standard library, following Go pro
 
 ### Prerequisites
 
-- Go 1.16 or higher
+- Go 1.24 or higher
+- Node.js 18+ and npm
 
-### Dependencies
+### Quick Start
 
-This project uses the following Go modules:
-- `golang.org/x/crypto/bcrypt` - For secure password hashing
-- `github.com/mattn/go-sqlite3` - SQLite database driver
+1. **Clone the repository**
+   ```bash
+   git clone <your-repo-url>
+   cd Messenger
+   ```
 
-### Running the Server
-
-1. Clone or download this project
-2. Install dependencies:
+2. **Start the backend (Go server)**
    ```bash
    go mod tidy
-   ```
-3. Run the server:
-   ```bash
    go run ./cmd/server
-   # or using Makefile
-   make run
+   # Server runs on http://localhost:8080
    ```
-4. Open your browser and visit `http://localhost:8080`
 
-The server will automatically create a SQLite database file (`users.db`) to store user information.
+3. **Start the frontend (React app)**
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   # App runs on http://localhost:5173
+   ```
+
+4. **Visit the application**
+   - Open http://localhost:5173 in your browser
+   - The React app will communicate with the Go API
+
+### Using VS Code Tasks
+
+This project includes VS Code tasks for easy development:
+
+- **`Ctrl+Shift+P`** → "Tasks: Run Task" → "Run Go Server"
+- **`Ctrl+Shift+P`** → "Tasks: Run Task" → "Run React Dev Server"
+- **`Ctrl+Shift+P`** → "Tasks: Run Task" → "Start Full Application" (runs both)
 
 ### Building
 
