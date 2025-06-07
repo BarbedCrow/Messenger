@@ -85,12 +85,33 @@
 			}
 		},
 		{
+			"label": "Run Go Server with Delve",
+			"type": "shell",
+			"command": "/Users/sergeikoltsov/go/bin/dlv",
+			"args": [
+				"debug",
+				"./cmd/server",
+				"--headless",
+				"--listen=:2345",
+				"--api-version=2",
+				"--accept-multiclient"
+			],
+			"group": "build",
+			"isBackground": true,
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "new"
+			}
+		},
+		{
 			"label": "Kill All Servers",
 			"type": "shell",
 			"command": "sh",
 			"args": [
 				"-c",
-				"pkill -f 'go run ./cmd/server' || true; pkill -f 'vite' || true; echo 'All servers stopped'"
+				"pkill -f 'go run ./cmd/server' || true; pkill -f 'vite' || true; pkill -f 'dlv' || true; pkill -f '__debug_b' || true; echo 'All servers stopped'"
 			],
 			"group": "build",
 			"presentation": {

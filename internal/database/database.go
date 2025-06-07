@@ -66,11 +66,11 @@ func (db *DB) CreateUser(login, passwordHash string) (int64, error) {
 
 // GetUserByLogin retrieves a user by login
 func (db *DB) GetUserByLogin(login string) (*models.User, error) {
-	query := "SELECT id, login FROM users WHERE login = ?"
+	query := "SELECT id, login, password_hash FROM users WHERE login = ?"
 	row := db.conn.QueryRow(query, login)
 
 	var user models.User
-	err := row.Scan(&user.ID, &user.Login)
+	err := row.Scan(&user.ID, &user.Login, &user.Password)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return nil, ErrUserNotFound
@@ -83,11 +83,11 @@ func (db *DB) GetUserByLogin(login string) (*models.User, error) {
 
 // GetUserByID retrieves a user by ID
 func (db *DB) GetUserByID(id int) (*models.User, error) {
-	query := "SELECT id, login FROM users WHERE id = ?"
+	query := "SELECT id, login, password_hash FROM users WHERE id = ?"
 	row := db.conn.QueryRow(query, id)
 
 	var user models.User
-	err := row.Scan(&user.ID, &user.Login)
+	err := row.Scan(&user.ID, &user.Login, &user.Password)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return nil, ErrUserNotFound

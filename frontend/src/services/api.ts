@@ -78,7 +78,7 @@ export const apiService = {
     return response.data;
   },
 
-  // User login (placeholder for future implementation)
+  // User login
   async login(userData: UserLogin): Promise<ApiResponse<User & { token: string }>> {
     const response = await api.post('/login', userData);
     return response.data;

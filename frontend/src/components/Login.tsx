@@ -95,32 +95,32 @@ const Login: React.FC = () => {
     
     // Validate form
     if (!validateForm()) {
-      setMessage({ text: 'Please fill in all required fields', type: 'error' });
-      return;
+        setMessage({ text: 'Please fill in all required fields', type: 'error' });
+        return;
     }
     
     setIsLoading(true);
     
     try {
-      const loginData: UserLogin = {
+        const loginData: UserLogin = {
         login: formData.login.trim(),
         password: formData.password,
-      };
+        };
       
-      // For now, show a message that login will be implemented
-      setMessage({ 
-        text: 'Login functionality will be implemented soon. Please use the registration for now.', 
-        type: 'info' 
-      });
-      
-      // Placeholder for actual login implementation
-      // const response = await apiService.login(loginData);
-      
-      // if (response.success !== false) {
-      //   localStorage.setItem('authToken', response.data.token);
-      //   navigate('/dashboard');
-      // }
-      
+        const response = await apiService.login(loginData);
+        if (response.success !== false) {
+            setMessage({ 
+            text: 'You successfully signed in', 
+            type: 'success' 
+            });
+
+            setFormData({ login: '', password: '' });
+            setErrors({});
+            if (response.data && response.data.token) {
+                localStorage.setItem('authToken', response.data.token);
+            }
+            //   navigate('/dashboard');
+        }   
     } catch (error: any) {
       console.error('Login error:', error);
       

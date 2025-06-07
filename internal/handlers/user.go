@@ -72,3 +72,46 @@ func (h *UserHandler) Register(w http.ResponseWriter, r *http.Request) {
 		"login": userReg.Login,
 	})
 }
+
+func (h *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		response.MethodNotAllowed(w, "only POST method is allowed")
+		return
+	}
+
+	var userLogin models.UserLogin
+	if err := json.NewDecoder(r.Body).Decode(&userLogin); err != nil {
+		response.BadRequest(w, "Invalid JSON format")
+		return
+	}
+
+	// Get user from database
+	userDb, err := h.db.GetUserByLogin(userLogin.Login)
+	if err != nil {
+		response.BadRequest(w, "Invalid login or password")
+		return
+	}
+
+	// Verify password using bcrypt comparison
+	if err := auth.VerifyPassword(userDb.Password, userLogin.Password); err != nil {
+		response.BadRequest(w, "Invalid login or password")
+		return
+	}
+
+	// Generate JWT token
+	token, err := auth.GenerateToken(userDb.ID, userDb.Login)
+	if err != nil {
+		log.Printf("Failed to generate token: %v", err)
+		response.InternalError(w, "Failed to generate authentication token")
+		return
+	}
+
+	// Success response with token
+	response.Success(w, "Login successful", map[string]any{
+		"token": token,
+		"user": map[string]any{
+			"id":    userDb.ID,
+			"login": userDb.Login,
+		},
+	})
+}
