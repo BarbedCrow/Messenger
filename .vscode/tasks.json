@@ -69,6 +69,38 @@
 			"problemMatcher": []
 		},
 		{
+			"label": "Kill React Dev Server",
+			"type": "shell",
+			"command": "pkill",
+			"args": [
+				"-f",
+				"vite"
+			],
+			"group": "build",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Kill All Servers",
+			"type": "shell",
+			"command": "sh",
+			"args": [
+				"-c",
+				"pkill -f 'go run ./cmd/server' || true; pkill -f 'vite' || true; echo 'All servers stopped'"
+			],
+			"group": "build",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			}
+		},
+		{
 			"label": "Start Full Application",
 			"dependsOrder": "parallel",
 			"dependsOn": [
